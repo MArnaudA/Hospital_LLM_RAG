@@ -1,15 +1,11 @@
 import os
 
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import (
-    Tool,
-    AgentExecutor
-)
-from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
-from langchain import hub
-from chains.hospital_review_chain import reviews_vector_chain
 from chains.hospital_cypher_chain import hospital_cypher_chain
-from models.hospital_rag_query import HospitalQueryInput, HospitalQueryOutput
+from chains.hospital_review_chain import reviews_vector_chain
+from langchain import hub
+from langchain.agents import AgentExecutor, Tool, initialize_agent
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.agents.output_parsers import ReActSingleInputOutputParser
 from tools.wait_times import (
     get_current_wait_times,
     get_most_available_hospital,
@@ -17,7 +13,7 @@ from tools.wait_times import (
 
 HOSPITAL_AGENT_MODEL = os.getenv("HOSPITAL_AGENT_MODEL")
 
-prompt = hospital_agent_prompt = hub.pull("hwchase17/openai-functions-agent")
+hospital_agent_prompt = hub.pull("hwchase17/openai-functions-agent")
 
 tools = [
     Tool(
@@ -68,29 +64,23 @@ tools = [
     ),
 ]
 
-
-
 chat_model = ChatGoogleGenerativeAI(
     model=HOSPITAL_AGENT_MODEL,
     temperature=0,
-    google_api_key=os.getenv("GOOGLE_API_KEY")
+    convert_system_message_to_human=True,
+    output_parser=ReActSingleInputOutputParser(),
 )
 
-llm_with_tools = chat_model.bind(tools=tools)
-
-
-agent = (
-    {
-        "input": lambda x: x["input"]
-    }
-    |prompt
-    |llm_with_tools
-    |OpenAIFunctionsAgentOutputParser()
+hospital_rag_agent = initialize_agent(
+    llm=chat_model,
+    prompt=hospital_agent_prompt,
+    tools=tools,
+    return_intermediate_steps=True
 )
 
-hospital_rag_agent_executor = AgentExecutor(agent=agent,
-                               tools=tools,
-                               verbose=True).with_types(
-                                   input_type=HospitalQueryInput,
-                                   output_type=HospitalQueryOutput
-                               )
+# hospital_rag_agent_executor = AgentExecutor(
+#     agent=hospital_rag_agent,
+#     tools=tools,
+#     return_intermediate_steps=True,
+#     verbose=True,
+# )

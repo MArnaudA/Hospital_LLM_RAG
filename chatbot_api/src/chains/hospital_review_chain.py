@@ -14,7 +14,7 @@ HOSPITAL_QA_MODEL = os.getenv("HOSPITAL_QA_MODEL")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 neo4j_vector_index = Neo4jVector.from_existing_graph(
-    embedding=GoogleGenerativeAIEmbeddings(google_api_key=os.getenv("GOOGLE_API_KEY"),model="models/embedding-001"),
+    embedding=GoogleGenerativeAIEmbeddings(google_api_key=GOOGLE_API_KEY,model="models/embedding-001"),
     url=os.getenv("NEO4J_URI"),
     username=os.getenv("NEO4J_USERNAME"),
     password=os.getenv("NEO4J_PASSWORD"),
