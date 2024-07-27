@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 from fastapi import FastAPI
 from agents.hospital_rag_agent import hospital_rag_agent
 from models.hospital_rag_query import HospitalQueryInput, HospitalQueryOutput
