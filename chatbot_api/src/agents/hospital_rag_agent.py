@@ -1,4 +1,7 @@
 import os
+import sys
+
+sys.path.append("../")
 
 from chains.hospital_cypher_chain import hospital_cypher_chain
 from chains.hospital_review_chain import reviews_vector_chain
