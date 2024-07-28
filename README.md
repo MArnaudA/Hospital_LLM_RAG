@@ -13,3 +13,7 @@ The main difference with the tutorial is that I adapted the code and worked with
 ## Test the chatbot
 
 You can go to [this Streamlit website](https://hospital-chatbot.streamlit.app/) to chat with the chatbot.
+
+## About data
+
+Datasets come from the tutorial and are generated. You can find the data used at `data/` repository and find an exploratory notebook at `notebooks/` repository
