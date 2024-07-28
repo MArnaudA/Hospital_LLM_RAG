@@ -1,6 +1,7 @@
 # Hospital LLM RAG
 
-This project is a hospital management system developed as part of Real Python tutorial about LLM and RAG. It aims to offer a better visibility of data about hospitals, for patients and employees of the hospitals.
+This project is a hospital management system developed as part of [Real Python](https://realpython.com/build-llm-rag-chatbot-with-langchain/) tutorial about LLM and RAG. It aims to offer a better visibility of data about hospitals, for patients and employees of the hospitals.
+The main difference with the tutorial is that I adapted the code and worked with Gemini-1.5-pro as the LLM, and deployed this app with google cloud run (for FastAPI) and Streamlit Cloud 
 
 ## Features
 
@@ -11,4 +12,4 @@ This project is a hospital management system developed as part of Real Python tu
 
 ## Test the chatbot
 
-You can go to [this Streamlit website](https://hospital-chatbot.streamlit.app/) to chat with the chatbot
+You can go to [this Streamlit website](https://hospital-chatbot.streamlit.app/) to chat with the chatbot.
