@@ -1,6 +1,7 @@
 import asyncio
 
-def async_retry(max_retries: int=3, delay: int=1):
+
+def async_retry(max_retries: int = 3, delay: int = 1):
     def decorator(func):
         async def wrapper(*args, **kwargs):
             for attempt in range(1, max_retries + 1):

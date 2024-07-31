@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append("../")
 
 from fastapi import FastAPI
@@ -11,6 +12,7 @@ app = FastAPI(
     description="Endpoints for a hospital system graph RAG chatbot",
 )
 
+
 @async_retry(max_retries=10, delay=1)
 async def invoke_agent_with_retry(query: str):
     """Retry the agent if a tool fails to run.
@@ -20,9 +22,11 @@ async def invoke_agent_with_retry(query: str):
     """
     return await hospital_rag_agent.ainvoke({"input": query})
 
+
 @app.get("/")
 async def get_status():
     return {"status": "running"}
+
 
 @app.post("/hospital-rag-agent")
 async def query_hospital_agent(query: HospitalQueryInput) -> HospitalQueryOutput:

@@ -14,7 +14,9 @@ HOSPITAL_QA_MODEL = os.getenv("HOSPITAL_QA_MODEL")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 neo4j_vector_index = Neo4jVector.from_existing_graph(
-    embedding=GoogleGenerativeAIEmbeddings(google_api_key=GOOGLE_API_KEY,model="models/embedding-001"),
+    embedding=GoogleGenerativeAIEmbeddings(
+        google_api_key=GOOGLE_API_KEY, model="models/embedding-001"
+    ),
     url=os.getenv("NEO4J_URI"),
     username=os.getenv("NEO4J_USERNAME"),
     password=os.getenv("NEO4J_PASSWORD"),
@@ -50,7 +52,9 @@ review_prompt = ChatPromptTemplate(
 )
 
 reviews_vector_chain = RetrievalQA.from_chain_type(
-    llm=ChatGoogleGenerativeAI(model=HOSPITAL_QA_MODEL, temperature=0, google_api_key=GOOGLE_API_KEY),
+    llm=ChatGoogleGenerativeAI(
+        model=HOSPITAL_QA_MODEL, temperature=0, google_api_key=GOOGLE_API_KEY
+    ),
     chain_type="stuff",
     retriever=neo4j_vector_index.as_retriever(k=12),
 )

@@ -2,7 +2,9 @@ import os
 import requests
 import streamlit as st
 
-CHATBOT_URL = os.getenv("CHATBOT_URL", "https://hospital-llm-rag-4djnieysya-ew.a.run.app/hospital-rag-agent")
+CHATBOT_URL = os.getenv(
+    "CHATBOT_URL", "https://hospital-llm-rag-4djnieysya-ew.a.run.app/hospital-rag-agent"
+)
 
 with st.sidebar:
     st.header("About")
@@ -26,8 +28,7 @@ with st.sidebar:
     )
     st.markdown("- What is the average duration in days for closed emergency visits?")
     st.markdown(
-        "- What are patients saying about the nursing staff at "
-        "Castaneda-Hardy?"
+        "- What are patients saying about the nursing staff at " "Castaneda-Hardy?"
     )
     st.markdown("- What was the total billing amount charged to each payer for 2023?")
     st.markdown("- What is the average billing amount for medicaid visits?")
