@@ -78,7 +78,7 @@ hospital_rag_agent = initialize_agent(
     llm=chat_model,
     prompt=hospital_agent_prompt,
     tools=tools,
-    return_intermediate_steps=True
+    return_intermediate_steps=True,
 )
 
 # hospital_rag_agent_executor = AgentExecutor(

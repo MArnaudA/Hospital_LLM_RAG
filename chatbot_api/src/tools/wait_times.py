@@ -3,6 +3,7 @@ from typing import Any
 import numpy as np
 from langchain_community.graphs import Neo4jGraph
 
+
 def _get_current_hospitals() -> list[str]:
     """Fetch a list of current hospital names from a Neo4j database."""
     graph = Neo4jGraph(
@@ -19,6 +20,7 @@ def _get_current_hospitals() -> list[str]:
     )
 
     return [d["hospital_name"].lower() for d in current_hospitals]
+
 
 def _get_current_wait_time_minutes(hospital: str) -> int:
     """Get the current wait time at a hospital in minutes."""
@@ -43,15 +45,13 @@ def get_current_wait_times(hospital: str) -> str:
         return f"{hours} hours {minutes} minutes"
     else:
         return f"{minutes} minutes"
-    
+
 
 def get_most_available_hospital(_: Any) -> dict[str, float]:
     """Find the hospital with the shortest wait time."""
     current_hospitals = _get_current_hospitals()
 
-    current_wait_times = [
-        _get_current_wait_time_minutes(h) for h in current_hospitals
-    ]
+    current_wait_times = [_get_current_wait_time_minutes(h) for h in current_hospitals]
 
     best_time_idx = np.argmin(current_wait_times)
     best_hospital = current_hospitals[best_time_idx]

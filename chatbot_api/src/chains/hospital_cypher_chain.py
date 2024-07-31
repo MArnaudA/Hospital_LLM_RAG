@@ -8,7 +8,11 @@ HOSPITAL_QA_MODEL = os.getenv("HOSPITAL_QA_MODEL")
 HOSPITAL_CYPHER_MODEL = os.getenv("HOSPITAL_CYPHER_MODEL")
 
 
-graph = Neo4jGraph(url=os.getenv("NEO4J_URI"),username=os.getenv("NEO4J_USER"),password=os.getenv("NEO4J_PASSWORD"))
+graph = Neo4jGraph(
+    url=os.getenv("NEO4J_URI"),
+    username=os.getenv("NEO4J_USER"),
+    password=os.getenv("NEO4J_PASSWORD"),
+)
 
 graph.refresh_schema()
 
@@ -144,14 +148,14 @@ qa_generation_prompt = PromptTemplate(
 
 hospital_cypher_chain = GraphCypherQAChain.from_llm(
     cypher_llm=ChatGoogleGenerativeAI(
-        model=HOSPITAL_CYPHER_MODEL, 
+        model=HOSPITAL_CYPHER_MODEL,
         temperature=0,
-        google_api_key=os.getenv("GOOGLE_API_KEY")
+        google_api_key=os.getenv("GOOGLE_API_KEY"),
     ),
     qa_llm=ChatGoogleGenerativeAI(
         model=HOSPITAL_QA_MODEL,
         temperature=0,
-        google_api_key=os.getenv("GOOGLE_API_KEY")
+        google_api_key=os.getenv("GOOGLE_API_KEY"),
     ),
     graph=graph,
     verbose=True,
