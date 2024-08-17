@@ -21,7 +21,7 @@ with st.sidebar:
 
     st.header("Example Questions")
     st.markdown("- Which hospitals are in the hospital system?")
-    st.markdown("- What is the current wait time at wallace-hamilton hospital?")
+    st.markdown("- What is the current wait time at Wallace-Hamilton hospital?")
     st.markdown(
         "- At which hospitals are patients complaining about billing and "
         "insurance issues?"
@@ -86,7 +86,12 @@ if prompt := st.chat_input("What do you want to know?"):
 
         if response.status_code == 200:
             output_text = response.json()["output"]
-            explanation = response.json()["intermediate_steps"]
+            explanation = (
+                response.json()["intermediate_steps"][0]
+                .lstrip("(")
+                .rstrip(")")
+                .split(",")[2]
+            )
 
         else:
             output_text = """An error occurred while processing your message.
