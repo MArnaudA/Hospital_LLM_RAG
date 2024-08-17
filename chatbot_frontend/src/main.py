@@ -21,7 +21,7 @@ with st.sidebar:
 
     st.header("Example Questions")
     st.markdown("- Which hospitals are in the hospital system?")
-    st.markdown("- What is the current wait time at wallace-hamilton hospital?")
+    st.markdown("- What is the current wait time at Wallace-Hamilton hospital?")
     st.markdown(
         "- At which hospitals are patients complaining about billing and "
         "insurance issues?"
