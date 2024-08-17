@@ -86,7 +86,11 @@ if prompt := st.chat_input("What do you want to know?"):
 
         if response.status_code == 200:
             output_text = response.json()["output"]
-            explanation = response.json()["intermediate_steps"]
+            explanation = (response.json()["intermediate_steps"][0]
+                           .lstrip("(")
+                           .rstrip(")")
+                           .split(",")[2]
+                           )
 
         else:
             output_text = """An error occurred while processing your message.
